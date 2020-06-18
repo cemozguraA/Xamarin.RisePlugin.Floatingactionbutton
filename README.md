@@ -11,6 +11,9 @@
 ![](https://github.com/cemozguraA/Xamarin.RisePlugin.Floatingactionbutton/blob/master/Images/VerticalHorizIOS.gif?raw=true)
 
 
+
+### NugetPackage
+[https://www.nuget.org/packages/Xamarin.RisePlugin.Floatingactionbutton](https://www.nuget.org/packages/Xamarin.RisePlugin.Floatingactionbutton)
 - **Step1**
 
 Add the following NuGet package to your solution.
