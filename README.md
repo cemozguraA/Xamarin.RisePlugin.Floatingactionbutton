@@ -16,13 +16,13 @@
 Add the following NuGet package to your solution.
 - **Step2 (IOS)**
 
-You must add this line to your MainActivity.cs before you use AutoCompleteTextView
+You must add this line to your AppDelegate.cs before you use AutoCompleteTextView
  ```csharp
 COAFloatingactionbutton.Init();
 ```
 - **Step2 (ANDROID)**
 
-You must add this code to your AppDelegate.cs before you use AutoCompleteTextView
+You must add this code to your MainActivity.cs before you use AutoCompleteTextView
  ```csharp
 public override void SetContentView(Android.Views.View view)
         {
