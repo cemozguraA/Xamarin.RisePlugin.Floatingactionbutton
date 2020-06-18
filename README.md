@@ -40,7 +40,7 @@ public override void SetContentView(Android.Views.View view)
 | IOS  | 
 | Android  | 
 
-## Propertys
+## Properties
 | Property  | What it does |
 | ------------- | ------------|
 | Open  | Adding 'Mainbutton' to the rootview. |
