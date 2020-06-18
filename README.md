@@ -2,10 +2,10 @@
 
 
 #### Description
-- When you add an item source, it automatically suggests items for you. If the text editor is empty and click back button delete last selected item. You can select single or multiple items and you can customize the visuals of the selected items.
+- A button that will work on 'Rootview'. If you want, you can add sub-elements and use it in 5 different ways
 
 
-![](https://raw.githubusercontent.com/cemozguraA/Xamarin.RisePlugin.AutoCompleteTextView/master/Images/New%20Project.png)
+![](https://raw.githubusercontent.com/cemozguraA/Xamarin.RisePlugin.AutoCompleteTextView/master/Images/New%20Project.png) ![](https://github.com/cemozguraA/Xamarin.RisePlugin.AutoCompleteTextView/blob/master/Images/gif1.gif?raw=true)
 
 
 #### Multiple Selection
