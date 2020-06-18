@@ -5,7 +5,8 @@
 - A button that will work on 'Rootview'. If you want, you can add sub-elements and use it in 5 different ways
 
 
-![](https://raw.githubusercontent.com/cemozguraA/Xamarin.RisePlugin.AutoCompleteTextView/master/Images/New%20Project.png) ![](https://github.com/cemozguraA/Xamarin.RisePlugin.AutoCompleteTextView/blob/master/Images/gif1.gif?raw=true)
+![](https://github.com/cemozguraA/Xamarin.RisePlugin.Floatingactionbutton/blob/master/Images/CircleDroidGroup.gif?raw=true)
+![](https://github.com/cemozguraA/Xamarin.RisePlugin.Floatingactionbutton/blob/master/Images/CircleIOSGroup.gif?raw=true)
 
 
 #### Multiple Selection
