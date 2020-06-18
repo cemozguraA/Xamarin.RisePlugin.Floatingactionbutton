@@ -26,7 +26,7 @@ You must add this code to your MainActivity.cs before you use AutoCompleteTextVi
  ```csharp
 public override void SetContentView(Android.Views.View view)
         {
-            RootView.View = (Android.Widget.RelativeLayout)view;
+            Xamarin.RisePlugin.Droid.Floatingactionbutton.RootView.View = (Android.Widget.RelativeLayout)view;
             base.SetContentView(view);
         }
 ```
