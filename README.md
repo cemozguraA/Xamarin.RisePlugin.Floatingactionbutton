@@ -2,7 +2,7 @@
 
 
 #### Description
-- A button that will work on 'Rootview'. If you want, you can add sub-elements and use it in 5 different ways
+- A button that will work on 'Rootview' you dont need set any page. If you want, you can add sub-elements and use it in 5 different ways
 
 
 ![](https://github.com/cemozguraA/Xamarin.RisePlugin.Floatingactionbutton/blob/master/Images/CircleDroidGroup.gif?raw=true)
