@@ -375,7 +375,7 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                 lrparam.AddRule(LayoutRules.CenterHorizontal);
             else if (ActionOrientation == StackActionOrientation.Left)
                 lrparam.AddRule(LayoutRules.AlignParentStart);
-            lrparam.SetMargins(0, (int)MainButtonView.Margin.Top, 0, (int)MainButtonView.Margin.Bottom);
+            lrparam.SetMargins((int)MainButtonView.Margin.Left, (int)MainButtonView.Margin.Top, (int)MainButtonView.Margin.Right, (int)MainButtonView.Margin.Bottom);
             return lrparam;
         }
         private void MainButtonView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
