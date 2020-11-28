@@ -44,7 +44,7 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                         lrparam.AddRule(LayoutRules.CenterHorizontal);
                     else if (ActionOrientation == StackActionOrientation.Left)
                         lrparam.AddRule(LayoutRules.AlignParentStart);
-                    lrparam.SetMargins(0, (int)MainButtonView.Margin.Top, 0, (int)MainButtonView.Margin.Bottom);
+                    lrparam.SetMargins((int)MainButtonView.Margin.Left, (int)MainButtonView.Margin.Top, (int)MainButtonView.Margin.Right, (int)MainButtonView.Margin.Bottom);
                     linearLayout.LayoutParameters = lrparam;
                     HideSubView(0);
                     ShowSubView(0);
@@ -189,7 +189,7 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                             }
                         else
                         {
-                            
+
                             var RL = new FrameLayout(context);
                             var metrics = Resources.System.DisplayMetrics;
                             var ly = new RelativeLayout.LayoutParams(metrics.WidthPixels, metrics.HeightPixels);
@@ -375,7 +375,7 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                 lrparam.AddRule(LayoutRules.CenterHorizontal);
             else if (ActionOrientation == StackActionOrientation.Left)
                 lrparam.AddRule(LayoutRules.AlignParentStart);
-            lrparam.SetMargins(0, (int)MainButtonView.Margin.Top, 0, (int)MainButtonView.Margin.Bottom);
+            lrparam.SetMargins((int)MainButtonView.Margin.Left, (int)MainButtonView.Margin.Top, (int)MainButtonView.Margin.Right, (int)MainButtonView.Margin.Bottom);
             return lrparam;
         }
         private void MainButtonView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
