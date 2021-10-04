@@ -15,12 +15,14 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
     {
         private ActionButtonView _renderer;
         private readonly int _spacing;
+        private readonly Context _context;
 
         public CustomFloatingactionbutton(Context context, ActionButtonView renderer, int spacing) : base(context)
         {
             _spacing = spacing;
             Setbtn(renderer);
-            renderer.PropertyChanged += Renderer_PropertyChanged;
+            _renderer.PropertyChanged += Renderer_PropertyChanged;
+            _context = context;
         }
 
         private void CustomFloatingActionButton_Click(object sender, EventArgs e)
@@ -45,14 +47,21 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
             try
             {
                 var drawableNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(Icon).ToLower();
-                var resources = Context.Resources;
-                var imageResourceName = resources.GetIdentifier(drawableNameWithoutExtension, "drawable", Context.PackageName);
-                var bitmapp = BitmapFactory.DecodeResource(Context.Resources, imageResourceName);
-                var Height = (int)(_renderer.HeightRequest * 2.5) / 2;
-                var result = Bitmap.CreateScaledBitmap(bitmapp, Height, Height, false);
-                SetImageBitmap(result);
-                SetScaleType(ImageView.ScaleType.Center);
+                var resources = _context.Resources;
+                if (resources != null)
+                {
+                    var imageResourceName =
+                        resources.GetIdentifier(drawableNameWithoutExtension, "drawable", Context.PackageName);
+                    var bitmapp = BitmapFactory.DecodeResource(Context.Resources, imageResourceName);
+                    var Height = (int)(_renderer.HeightRequest * 2.5) / 2;
+                    if (bitmapp != null)
+                    {
+                        var result = Bitmap.CreateScaledBitmap(bitmapp, Height, Height, false);
+                        SetImageBitmap(result);
+                    }
+                }
 
+                SetScaleType(ScaleType.Center);
             }
             catch (Exception ex)
             {
@@ -62,7 +71,6 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
 
         private void SetSize()
         {
-
             if (!(LayoutParameters is RelativeLayout.LayoutParams))
             {
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
@@ -89,6 +97,12 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                 SetSize();
             else if (e.PropertyName == "Icon")
                 SetIcon(_renderer.Icon);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            _renderer.PropertyChanged -= Renderer_PropertyChanged;
         }
     }
 }
