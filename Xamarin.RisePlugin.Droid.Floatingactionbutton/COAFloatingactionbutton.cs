@@ -1,42 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.Res;
-using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
-using Xamarin.RisePlugin.Droid.Floatingactionbutton;
+using Google.Android.Material.FloatingActionButton;
 using Xamarin.RisePlugin.Floatingactionbutton;
 using Xamarin.RisePlugin.Floatingactionbutton.Enums;
 using Orientation = Android.Widget.Orientation;
 
-[assembly: Xamarin.Forms.DependencyAttribute(
-          typeof(Xamarin.RisePlugin.Droid.Floatingactionbutton.COAFloatingactionbutton))]
+[assembly: Xamarin.Forms.DependencyAttribute(typeof(Xamarin.RisePlugin.Droid.Floatingactionbutton.COAFloatingactionbutton))]
+
 namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
 {
     public class COAFloatingactionbutton : IFloatActionButton
     {
-        Context context;
-        FloatingActionButton fltbutton;
-        StackActionOrientation _stackActionOrientation;
+        private Context _context;
+        private FloatingActionButton _fltbutton;
+        private StackActionOrientation _stackActionOrientation;
+
         public StackActionOrientation ActionOrientation
         {
-            get { return _stackActionOrientation; }
+            get => _stackActionOrientation;
             set
             {
                 if (_stackActionOrientation == value)
                     return;
                 _stackActionOrientation = value;
-                if (linearLayout != null)
+                if (_linearLayout != null)
                 {
-                    RelativeLayout.LayoutParams lrparam = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
+                    RelativeLayout.LayoutParams lrparam =
+                        new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
+                            ViewGroup.LayoutParams.WrapContent);
                     lrparam.AddRule(LayoutRules.AlignParentBottom);
                     if (ActionOrientation == StackActionOrientation.Right)
                         lrparam.AddRule(LayoutRules.AlignParentEnd);
@@ -44,81 +42,81 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                         lrparam.AddRule(LayoutRules.CenterHorizontal);
                     else if (ActionOrientation == StackActionOrientation.Left)
                         lrparam.AddRule(LayoutRules.AlignParentStart);
-                    lrparam.SetMargins((int)MainButtonView.Margin.Left, (int)MainButtonView.Margin.Top, (int)MainButtonView.Margin.Right, (int)MainButtonView.Margin.Bottom);
-                    linearLayout.LayoutParameters = lrparam;
-                    HideSubView(0);
-                    ShowSubView(0);
+                    lrparam.SetMargins((int)MainButtonView.Margin.Left, (int)MainButtonView.Margin.Top,
+                        (int)MainButtonView.Margin.Right, (int)MainButtonView.Margin.Bottom);
+                    _linearLayout.LayoutParameters = lrparam;
+                    _ = HideSubView(0);
+                    _ = ShowSubView(0);
                 }
-
             }
         }
+
         ActionOpeningType _openingType;
+
         public ActionOpeningType OpeningType
         {
-            get
-            {
-                return _openingType;
-            }
+            get => _openingType;
             set
             {
                 _openingType = value;
-                if (linearLayout != null)
+                if (_linearLayout != null)
                 {
                     if (value == ActionOpeningType.VerticalTop || value == ActionOpeningType.VerticalBottom)
-                        linearLayout.Orientation = Orientation.Vertical;
+                        _linearLayout.Orientation = Orientation.Vertical;
                     else
-                        linearLayout.Orientation = Orientation.Horizontal;
+                        _linearLayout.Orientation = Orientation.Horizontal;
                 }
 
             }
         }
+
         public ActionButtonView MainButtonView { get; set; }
         public IList<ActionButtonView> SubViews { get; set; }
         public bool IsSubShowing { get; set; }
-        bool isShowing;
-        bool isProgress;
+        private bool _isShowing;
+        private bool _isProgress;
+
         public bool IsShowing
         {
-            get
-            {
-                return isShowing;
-            }
+            get => _isShowing;
             set
             {
                 if (value)
                 {
-                    context = Application.Context;
-                    context.SetTheme(Resource.Style.MainTheme);
+                    _context = Application.Context;
+                    _context.SetTheme(Resource.Style.MainTheme);
 
-                    linearLayout = new LinearLayout(context);
+                    _linearLayout = new LinearLayout(_context);
 
                     if (OpeningType == ActionOpeningType.VerticalTop || OpeningType == ActionOpeningType.VerticalBottom)
-                        linearLayout.Orientation = Orientation.Vertical;
+                        _linearLayout.Orientation = Orientation.Vertical;
                     else
-                        linearLayout.Orientation = Orientation.Horizontal;
+                        _linearLayout.Orientation = Orientation.Horizontal;
 
 
-                    fltbutton = new CustomFloatingactionbutton(context, MainButtonView, SubViewSpacing);
+                    _fltbutton = new CustomFloatingactionbutton(_context, MainButtonView, SubViewSpacing);
                     MainButtonView.PropertyChanged += MainButtonView_PropertyChanged;
-                    linearLayout.AddView(fltbutton);
-                    linearLayout.LayoutParameters = SetMainButtonLayout();
-                    RootView.View.AddView(linearLayout);
-                    fltbutton.Click += Fltbutton_Click;
+                    _linearLayout.AddView(_fltbutton);
+                    _linearLayout.LayoutParameters = SetMainButtonLayout();
+                    RootView.View.AddView(_linearLayout);
+                    _fltbutton.Click += Fltbutton_Click;
                 }
                 else
                 {
-                    HideSubView(10);
-                    for (int i = 0; i < linearLayout.ChildCount; i++)
+                    _ = HideSubView(10);
+                    for (int i = 0; i < _linearLayout.ChildCount; i++)
                     {
-                        linearLayout.RemoveViewAt(0);
+                        _linearLayout.RemoveViewAt(0);
                     }
-                    ((RelativeLayout)linearLayout.Parent).RemoveView(linearLayout);
-                    fltbutton = null;
-                    linearLayout = null;
-                    context = null;
+
+                    ((RelativeLayout)_linearLayout.Parent)?.RemoveView(_linearLayout);
+                    _fltbutton = null;
+                    _linearLayout = null;
+                    _context = null;
                     //SubViews = null;
                 }
-                isShowing = value;
+
+                _isShowing = value;
             }
         }
 
@@ -129,13 +127,14 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
 
         public int CircleAngle { get; set; }
         public int SubViewSpacing { get; set; }
+
         public COAFloatingactionbutton()
         {
-            if (SubViews == null)
-                SubViews = new List<ActionButtonView>();
+            SubViews = new List<ActionButtonView>();
             CircleAngle = 300;
             SubViewSpacing = 10;
         }
+
         public async Task<bool> ShowSubView(int Duration = 150)
         {
 
@@ -143,19 +142,20 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
             {
                 if (SubViews.Count > 0)
                 {
-                    if (!IsSubShowing && IsShowing && !isProgress)
+                    if (!IsSubShowing && IsShowing && !_isProgress)
                     {
-                        isProgress = true;
+                        _isProgress = true;
                         if (OpeningType != ActionOpeningType.Circle)
                             foreach (var item in SubViews)
                             {
 
-                                var Btnn = new CustomFloatingactionbutton(context, item, SubViewSpacing);
+                                var Btnn = new CustomFloatingactionbutton(_context, item, SubViewSpacing);
 
-                                if (OpeningType == ActionOpeningType.VerticalTop || OpeningType == ActionOpeningType.HorizontalLeft)
-                                    linearLayout.AddView(Btnn, 0);
+                                if (OpeningType == ActionOpeningType.VerticalTop ||
+                                    OpeningType == ActionOpeningType.HorizontalLeft)
+                                    _linearLayout.AddView(Btnn, 0);
                                 else
-                                    linearLayout.AddView(Btnn);
+                                    _linearLayout.AddView(Btnn);
 
                                 //Animation animate = AnimationUtils.LoadAnimation(context, Resource.Animation.EnterFromLeft);
                                 //Btnn.StartAnimation(animate);
@@ -180,32 +180,36 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
 
 
                                 await Task.Delay(Duration);
-                                if (OpeningType == ActionOpeningType.HorizontalLeft || OpeningType == ActionOpeningType.HorizontalRight)
-                                    Btnn.Animate().TranslationX(0).SetDuration(Duration);
+                                if (OpeningType == ActionOpeningType.HorizontalLeft ||
+                                    OpeningType == ActionOpeningType.HorizontalRight)
+                                    Btnn.Animate()?.TranslationX(0)?.SetDuration(Duration);
                                 else
-                                    Btnn.Animate().TranslationY(0).SetDuration(Duration);
+                                    Btnn.Animate()?.TranslationY(0)?.SetDuration(Duration);
 
                                 Btnn.Click += (sender, e) => { item.ClickAction(); };
                             }
                         else
                         {
 
-                            var RL = new FrameLayout(context);
-                            var metrics = Resources.System.DisplayMetrics;
-                            var ly = new RelativeLayout.LayoutParams(metrics.WidthPixels, metrics.HeightPixels);
-                            ly.AddRule(LayoutRules.AlignParentBottom);
-                            if (ActionOrientation == StackActionOrientation.Right)
-                                ly.AddRule(LayoutRules.AlignParentEnd);
-                            else if (ActionOrientation == StackActionOrientation.Center)
+                            var RL = new FrameLayout(_context);
+                            if (Resources.System != null)
                             {
-                                ly.AddRule(LayoutRules.CenterHorizontal);
-                                ly.Width *= 2;
+                                var metrics = Resources.System.DisplayMetrics;
+                                var ly = new RelativeLayout.LayoutParams(metrics.WidthPixels, metrics.HeightPixels);
+                                ly.AddRule(LayoutRules.AlignParentBottom);
+                                if (ActionOrientation == StackActionOrientation.Right)
+                                    ly.AddRule(LayoutRules.AlignParentEnd);
+                                else if (ActionOrientation == StackActionOrientation.Center)
+                                {
+                                    ly.AddRule(LayoutRules.CenterHorizontal);
+                                    ly.Width *= 2;
+                                }
+                                else if (ActionOrientation == StackActionOrientation.Right)
+                                    ly.AddRule(LayoutRules.AlignParentStart);
+
+
+                                RL.LayoutParameters = ly;
                             }
-                            else if (ActionOrientation == StackActionOrientation.Right)
-                                ly.AddRule(LayoutRules.AlignParentStart);
-
-
-                            RL.LayoutParameters = ly;
 
 
                             RootView.View.AddView(RL, 1);
@@ -229,27 +233,24 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                             }
                             else
                                 SetAngel(SubViews, AndroidCircle, RL, 110, Duration);
-
-
-
-
-
-
                         }
-                        isProgress = false;
+
+                        _isProgress = false;
                         IsSubShowing = true;
-                        lastOpeningType = OpeningType;
+                        _lastOpeningType = OpeningType;
                     }
 
                 }
+
                 return true;
             }
+
             catch (Exception ex)
             {
                 throw new FileNotFoundException("SubViews Null", ex);
             }
-
         }
+
         public void SetAngel(IList<ActionButtonView> Lst, float radius, FrameLayout rl, int Degress, int Duration)
         {
 
@@ -260,9 +261,10 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
 
                 var hOffset = radius * Math.Cos(i * degrees * 3.14 / 180);
                 var vOffset = radius * Math.Sin(i * degrees * 3.14 / 180);
-                var btn = new CustomFloatingactionbutton(context, item, SubViewSpacing);
+                var btn = new CustomFloatingactionbutton(_context, item, SubViewSpacing);
                 btn.Alpha = 0;
-                var ly = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
+                var ly = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
+                    ViewGroup.LayoutParams.WrapContent);
                 btn.CustomSize = (int)(item.HeightRequest * 2.5);
 
                 if (ActionOrientation == StackActionOrientation.Right)
@@ -271,67 +273,73 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                     ly.Gravity = GravityFlags.Center | GravityFlags.Bottom;
                 else if (ActionOrientation == StackActionOrientation.Left)
                     ly.Gravity = GravityFlags.Left | GravityFlags.Bottom;
-                var mainbuttonmargins = (LinearLayout.LayoutParams)linearLayout.GetChildAt(0).LayoutParameters;
-                var LinearLayoutprm = (RelativeLayout.LayoutParams)linearLayout.LayoutParameters;
-                ly.SetMargins(mainbuttonmargins.LeftMargin, 0, mainbuttonmargins.RightMargin, LinearLayoutprm.BottomMargin == 0 ? 30 : LinearLayoutprm.BottomMargin);
+                var mainbuttonmargins = (LinearLayout.LayoutParams)_linearLayout.GetChildAt(0)?.LayoutParameters;
+                var LinearLayoutprm = (RelativeLayout.LayoutParams)_linearLayout.LayoutParameters;
+                if (mainbuttonmargins != null)
+                    if (LinearLayoutprm != null)
+                        ly.SetMargins(mainbuttonmargins.LeftMargin, 0, mainbuttonmargins.RightMargin,
+                            LinearLayoutprm is { BottomMargin: 0 } ? 30 : LinearLayoutprm.BottomMargin);
 
                 //ly.AddRule(LayoutRules.AlignParentBottom);
                 btn.LayoutParameters = ly;
                 if (ActionOrientation == StackActionOrientation.Left)
-                    btn.Animate().TranslationX(-(float)(-1 * hOffset)).SetDuration(Duration);
+                    btn.Animate()?.TranslationX(-(float)(-1 * hOffset))?.SetDuration(Duration);
                 else
-                    btn.Animate().TranslationX((float)(-1 * hOffset)).SetDuration(Duration);
-                btn.Animate().TranslationY(((float)(-1 * vOffset))).SetDuration(Duration);
+                    btn.Animate()?.TranslationX((float)(-1 * hOffset))?.SetDuration(Duration);
+                btn.Animate()?.TranslationY(((float)(-1 * vOffset)))?.SetDuration(Duration);
 
-                btn.Animate().Alpha(1).SetDuration(Duration);
-                btn.Click += (sender, e) =>
-                {
-                    item.ClickAction();
-                };
+                btn.Animate()?.Alpha(1)?.SetDuration(Duration);
+                btn.Click += (sender, e) => { item.ClickAction(); };
                 //btn.SetIcon(item.Icon);
                 rl.AddView(btn);
                 i++;
             }
-
-
         }
-        ActionOpeningType lastOpeningType;
+
+        private ActionOpeningType _lastOpeningType;
+
         public async Task<bool> HideSubView(int Duration = 150)
         {
-
             try
             {
-                if (IsSubShowing && IsShowing && !isProgress)
+                if (IsSubShowing && IsShowing && !_isProgress)
                 {
-                    isProgress = true;
-                    var count = linearLayout.ChildCount - 1;
+                    _isProgress = true;
+                    var count = _linearLayout.ChildCount - 1;
                     for (int i = 0; i < count; i++)
                     {
 
-                        if (lastOpeningType == ActionOpeningType.VerticalTop || lastOpeningType == ActionOpeningType.HorizontalLeft)
+                        if (_lastOpeningType == ActionOpeningType.VerticalTop ||
+                            _lastOpeningType == ActionOpeningType.HorizontalLeft)
                         {
-                            linearLayout.GetChildAt(0).Animate().Alpha(0).SetDuration(Duration);
+                            _linearLayout.GetChildAt(0)?.Animate()?.Alpha(0)?.SetDuration(Duration);
                             await Task.Delay(Duration);
-                            linearLayout.RemoveViewAt(0);
+                            _linearLayout.RemoveViewAt(0);
                         }
                         else
                         {
-                            linearLayout.GetChildAt(1).Animate().Alpha(0).SetDuration(Duration);
+                            _linearLayout.GetChildAt(1)?.Animate()?.Alpha(0)?.SetDuration(Duration);
                             await Task.Delay(Duration);
-                            linearLayout.RemoveViewAt(1);
+                            _linearLayout.RemoveViewAt(1);
                         }
+
                         IsSubShowing = false;
                     }
-                    if (count == 0 && lastOpeningType == ActionOpeningType.Circle)
+
+                    if (count == 0 && _lastOpeningType == ActionOpeningType.Circle)
                     {
                         var RL = (FrameLayout)RootView.View.GetChildAt(1);
                         for (int i = 0; i < RL.ChildCount; i++)
                         {
                             var btn = (FloatingActionButton)RL.GetChildAt(i);
-                            btn.Animate().TranslationX(0).SetDuration(Duration);
-                            btn.Animate().TranslationY(0).SetDuration(Duration);
-                            btn.Animate().Alpha(0).SetDuration(Duration);
+                            if (btn != null)
+                            {
+                                btn.Animate()?.TranslationX(0)?.SetDuration(Duration);
+                                btn.Animate()?.TranslationY(0)?.SetDuration(Duration);
+                                btn.Animate()?.Alpha(0)?.SetDuration(Duration);
+                            }
                         }
+
                         await Task.Delay(Duration);
                         for (int i = 1; i < RootView.View.ChildCount; i++)
                         {
@@ -341,7 +349,8 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
 
                         IsSubShowing = false;
                     }
-                    isProgress = false;
+
+                    _isProgress = false;
                 }
 
                 return true;
@@ -350,24 +359,27 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
             catch (Exception ex)
             {
                 throw new FileNotFoundException("Some wrong prog.", ex);
-
             }
-
         }
-        LinearLayout linearLayout;
+
+        private LinearLayout _linearLayout;
+
         public void Open()
         {
             if (!IsShowing)
                 IsShowing = true;
         }
+
         public void Close()
         {
             if (IsShowing)
                 IsShowing = false;
         }
-        RelativeLayout.LayoutParams SetMainButtonLayout()
+
+        private RelativeLayout.LayoutParams SetMainButtonLayout()
         {
-            RelativeLayout.LayoutParams lrparam = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
+            RelativeLayout.LayoutParams lrparam = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
+                ViewGroup.LayoutParams.WrapContent);
             lrparam.AddRule(LayoutRules.AlignParentBottom);
             if (ActionOrientation == StackActionOrientation.Right)
                 lrparam.AddRule(LayoutRules.AlignParentEnd);
@@ -375,16 +387,18 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                 lrparam.AddRule(LayoutRules.CenterHorizontal);
             else if (ActionOrientation == StackActionOrientation.Left)
                 lrparam.AddRule(LayoutRules.AlignParentStart);
-            lrparam.SetMargins((int)MainButtonView.Margin.Left, (int)MainButtonView.Margin.Top, (int)MainButtonView.Margin.Right, (int)MainButtonView.Margin.Bottom);
+            lrparam.SetMargins((int)MainButtonView.Margin.Left, (int)MainButtonView.Margin.Top,
+                (int)MainButtonView.Margin.Right, (int)MainButtonView.Margin.Bottom);
             return lrparam;
         }
+
         private void MainButtonView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(MainButtonView.Margin))
             {
-                linearLayout.LayoutParameters = SetMainButtonLayout();
-                HideSubView(0);
-                ShowSubView(0);
+                _linearLayout.LayoutParameters = SetMainButtonLayout();
+                _ = HideSubView(0);
+                _ = ShowSubView(0);
             }
         }
     }
