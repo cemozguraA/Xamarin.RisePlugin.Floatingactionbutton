@@ -10,7 +10,7 @@ using Android.Widget;
 using Google.Android.Material.FloatingActionButton;
 using Xamarin.RisePlugin.Floatingactionbutton;
 using Xamarin.RisePlugin.Floatingactionbutton.Enums;
-using Orientation = Android.Widget.Orientation;
+using AOrientation = Android.Widget.Orientation;
 
 [assembly: Xamarin.Forms.DependencyAttribute(typeof(Xamarin.RisePlugin.Droid.Floatingactionbutton.COAFloatingactionbutton))]
 
@@ -51,7 +51,7 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
             }
         }
 
-        ActionOpeningType _openingType;
+        private ActionOpeningType _openingType;
 
         public ActionOpeningType OpeningType
         {
@@ -62,11 +62,10 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                 if (_linearLayout != null)
                 {
                     if (value == ActionOpeningType.VerticalTop || value == ActionOpeningType.VerticalBottom)
-                        _linearLayout.Orientation = Orientation.Vertical;
+                        _linearLayout.Orientation = AOrientation.Vertical;
                     else
-                        _linearLayout.Orientation = Orientation.Horizontal;
+                        _linearLayout.Orientation = AOrientation.Horizontal;
                 }
-
             }
         }
 
@@ -89,10 +88,9 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                     _linearLayout = new LinearLayout(_context);
 
                     if (OpeningType == ActionOpeningType.VerticalTop || OpeningType == ActionOpeningType.VerticalBottom)
-                        _linearLayout.Orientation = Orientation.Vertical;
+                        _linearLayout.Orientation = AOrientation.Vertical;
                     else
-                        _linearLayout.Orientation = Orientation.Horizontal;
-
+                        _linearLayout.Orientation = AOrientation.Horizontal;
 
                     _fltbutton = new CustomFloatingactionbutton(_context, MainButtonView, SubViewSpacing);
                     MainButtonView.PropertyChanged += MainButtonView_PropertyChanged;
@@ -163,21 +161,18 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                                 switch (OpeningType)
                                 {
                                     case ActionOpeningType.HorizontalLeft:
-                                        Btnn.Animate().TranslationX(-SubViewSpacing).SetDuration(Duration);
+                                        Btnn.Animate()?.TranslationX(-SubViewSpacing)?.SetDuration(Duration);
                                         break;
                                     case ActionOpeningType.HorizontalRight:
-                                        Btnn.Animate().TranslationX(+SubViewSpacing).SetDuration(Duration);
+                                        Btnn.Animate()?.TranslationX(+SubViewSpacing)?.SetDuration(Duration);
                                         break;
                                     case ActionOpeningType.VerticalTop:
-                                        Btnn.Animate().TranslationY(-SubViewSpacing).SetDuration(Duration);
+                                        Btnn.Animate()?.TranslationY(-SubViewSpacing)?.SetDuration(Duration);
                                         break;
                                     case ActionOpeningType.VerticalBottom:
-                                        Btnn.Animate().TranslationY(+SubViewSpacing).SetDuration(Duration);
-                                        break;
-                                    default:
+                                        Btnn.Animate()?.TranslationY(+SubViewSpacing)?.SetDuration(Duration);
                                         break;
                                 }
-
 
                                 await Task.Delay(Duration);
                                 if (OpeningType == ActionOpeningType.HorizontalLeft ||
@@ -206,7 +201,6 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                                 }
                                 else if (ActionOrientation == StackActionOrientation.Right)
                                     ly.AddRule(LayoutRules.AlignParentStart);
-
 
                                 RL.LayoutParameters = ly;
                             }
@@ -239,7 +233,6 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                         IsSubShowing = true;
                         _lastOpeningType = OpeningType;
                     }
-
                 }
 
                 return true;
@@ -253,7 +246,6 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
 
         public void SetAngel(IList<ActionButtonView> Lst, float radius, FrameLayout rl, int Degress, int Duration)
         {
-
             var degrees = Degress / Lst.Count;
             int i = 0;
             foreach (var item in Lst)
