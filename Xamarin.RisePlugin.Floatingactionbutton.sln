@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.RisePlugin.Floatingactionbutton", "Xamarin.RisePlugin.Floatingactionbutton\Xamarin.RisePlugin.Floatingactionbutton.csproj", "{0EB675C5-A0B8-40A1-8E30-BE38CB7C07AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.RisePlugin.Droid.Floatingactionbutton", "Xamarin.RisePlugin.Droid.Floatingactionbutton\Xamarin.RisePlugin.Droid.Floatingactionbutton.csproj", "{276EA785-5B76-49BC-97FC-37D0B616326D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.RisePlugin.IOS.Floatingactionbutton", "Xamarin.RisePlugin.IOS.Floatingactionbutton\Xamarin.RisePlugin.IOS.Floatingactionbutton.csproj", "{F94EDF26-1B6F-4FBA-99D8-A19CF6CCD022}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EB675C5-A0B8-40A1-8E30-BE38CB7C07AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EB675C5-A0B8-40A1-8E30-BE38CB7C07AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EB675C5-A0B8-40A1-8E30-BE38CB7C07AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EB675C5-A0B8-40A1-8E30-BE38CB7C07AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{276EA785-5B76-49BC-97FC-37D0B616326D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{276EA785-5B76-49BC-97FC-37D0B616326D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{276EA785-5B76-49BC-97FC-37D0B616326D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{276EA785-5B76-49BC-97FC-37D0B616326D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F94EDF26-1B6F-4FBA-99D8-A19CF6CCD022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F94EDF26-1B6F-4FBA-99D8-A19CF6CCD022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F94EDF26-1B6F-4FBA-99D8-A19CF6CCD022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F94EDF26-1B6F-4FBA-99D8-A19CF6CCD022}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {655F7E04-E302-4761-A831-3B1B778C9A68}
+	EndGlobalSection
+EndGlobal

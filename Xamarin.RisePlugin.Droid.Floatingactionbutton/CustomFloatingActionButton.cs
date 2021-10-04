@@ -1,34 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-
-using Android.App;
 using Android.Content;
 using Android.Content.Res;
 using Android.Graphics;
-using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
+using Google.Android.Material.FloatingActionButton;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.RisePlugin.Floatingactionbutton;
 
 namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
 {
-    class CustomFloatingactionbutton : FloatingActionButton
+    public class CustomFloatingactionbutton : FloatingActionButton
     {
         private ActionButtonView _renderer;
-        int _spacing;
+        private readonly int _spacing;
+        private readonly Context _context;
+
         public CustomFloatingactionbutton(Context context, ActionButtonView renderer, int spacing) : base(context)
         {
             _spacing = spacing;
             Setbtn(renderer);
-            renderer.PropertyChanged += Renderer_PropertyChanged;
-
-
+            _renderer.PropertyChanged += Renderer_PropertyChanged;
+            _context = context;
         }
 
         private void CustomFloatingActionButton_Click(object sender, EventArgs e)
@@ -47,28 +41,36 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                 SetIcon(v.Icon);
             }
         }
+
         public void SetIcon(string Icon)
         {
             try
             {
                 var drawableNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(Icon).ToLower();
-                var resources = Context.Resources;
-                var imageResourceName = resources.GetIdentifier(drawableNameWithoutExtension, "drawable", Context.PackageName);
-                var bitmapp = BitmapFactory.DecodeResource(Context.Resources, imageResourceName);
-                var Height = (int)(_renderer.HeightRequest * 2.5) / 2;
-                var result = Bitmap.CreateScaledBitmap(bitmapp, Height, Height, false);
-                SetImageBitmap(result);
-                SetScaleType(ImageView.ScaleType.Center);
+                var resources = _context.Resources;
+                if (resources != null)
+                {
+                    var imageResourceName =
+                        resources.GetIdentifier(drawableNameWithoutExtension, "drawable", Context.PackageName);
+                    var bitmapp = BitmapFactory.DecodeResource(Context.Resources, imageResourceName);
+                    var Height = (int)(_renderer.HeightRequest * 2.5) / 2;
+                    if (bitmapp != null)
+                    {
+                        var result = Bitmap.CreateScaledBitmap(bitmapp, Height, Height, false);
+                        SetImageBitmap(result);
+                    }
+                }
 
+                SetScaleType(ScaleType.Center);
             }
             catch (Exception ex)
             {
                 throw new FileNotFoundException("There was no Android Drawable by that name.", ex);
             }
         }
-        void SetSize()
-        {
 
+        private void SetSize()
+        {
             if (!(LayoutParameters is RelativeLayout.LayoutParams))
             {
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
@@ -83,6 +85,7 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                 LayoutParameters = lp;
             }
         }
+
         private void Renderer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             //var lp = (LinearLayout.LayoutParams)LayoutParameters;
@@ -96,6 +99,10 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
                 SetIcon(_renderer.Icon);
         }
 
-
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            _renderer.PropertyChanged -= Renderer_PropertyChanged;
+        }
     }
 }
