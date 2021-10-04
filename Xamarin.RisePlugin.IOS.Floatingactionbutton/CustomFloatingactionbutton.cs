@@ -23,14 +23,16 @@ namespace Xamarin.RisePlugin.IOS.Floatingactionbutton
             _heightConstraint.Active = true;
             _widthConstraint = WidthAnchor.ConstraintEqualTo((nfloat)View.HeightRequest);
             _widthConstraint.Active = true;
-            TouchDown += delegate(object sender, EventArgs e)
-            {
-                UIView.Animate(0.1, 0, UIViewAnimationOptions.Autoreverse,
-                    () => { BackgroundColor = View.SelectedColor.ToUIColor(); },
-                    () => { BackgroundColor = View.BackgroundColor.ToUIColor(); });
-                View.ClickAction();
-            };
+            TouchDown += CustomFloatingactionbutton_TouchDown;
             _view.PropertyChanged += PropertyChanged;
+        }
+
+        private void CustomFloatingactionbutton_TouchDown(object sender, EventArgs e)
+        {
+            Animate(0.1, 0, UIViewAnimationOptions.Autoreverse,
+                () => { BackgroundColor = _view.SelectedColor.ToUIColor(); },
+                () => { BackgroundColor = _view.BackgroundColor.ToUIColor(); });
+            _view.ClickAction();
         }
 
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -60,6 +62,13 @@ namespace Xamarin.RisePlugin.IOS.Floatingactionbutton
             var resultImage = UIGraphics.GetImageFromCurrentImageContext();
             UIGraphics.EndImageContext();
             return resultImage;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            TouchDown -= CustomFloatingactionbutton_TouchDown;
+            _view.PropertyChanged -= PropertyChanged;
         }
     }
 }
