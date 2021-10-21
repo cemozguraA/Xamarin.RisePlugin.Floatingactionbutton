@@ -6,7 +6,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Xamarin.RisePlugin.Droid.Floatingactionbutton;
 
 namespace App2.Droid
 {
@@ -32,7 +31,7 @@ namespace App2.Droid
         }
         public override void SetContentView(Android.Views.View view)
         {
-            RootView.View = (Android.Widget.RelativeLayout)view;
+            Xamarin.RisePlugin.Droid.Floatingactionbutton.RootView.View = (Android.Widget.RelativeLayout)view;
             base.SetContentView(view);
         }
     }

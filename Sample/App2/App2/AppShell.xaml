@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App2.AppShell"
+       xmlns:local="clr-namespace:App2">
+    <TabBar>
+        <Tab Title="test">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="ProfilePage" />
+        </Tab>
+        <Tab Title="test1">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="ProfilePage" />
+        </Tab>
+    </TabBar>
+</Shell>
