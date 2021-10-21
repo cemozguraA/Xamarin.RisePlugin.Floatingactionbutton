@@ -33,7 +33,11 @@ public override void SetContentView(Android.Views.View view)
             base.SetContentView(view);
         }
 ```
-
+| Supports  | 
+| ------------- | 
+| Xamarin 4.8>= |
+| Android Latest Version |
+| IOS Latest Version |
 
 | Platforms  | 
 | ------------- | 
