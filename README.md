@@ -21,7 +21,7 @@ Add the following NuGet package to your solution.
 
 You must add this line to your AppDelegate.cs before you use Floatingactionbutton
  ```csharp
-COAFloatingactionbutton.Init();
+Xamarin.RisePlugin.IOS.Floatingactionbutton.COAFloatingactionbutton.Init();
 ```
 - **Step2 (ANDROID)**
 
