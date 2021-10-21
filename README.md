@@ -59,6 +59,8 @@ public override void SetContentView(Android.Views.View view)
 | SubViews  | List of subview |
 | ShowSubView  | With animation |
 | HideSubView  | With animation |
+| Click | Click Event |
+| LongClick | Long Click Evet |
 
 
 
