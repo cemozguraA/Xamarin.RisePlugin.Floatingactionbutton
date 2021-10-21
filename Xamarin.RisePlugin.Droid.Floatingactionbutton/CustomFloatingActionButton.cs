@@ -19,11 +19,16 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
 
         public CustomFloatingactionbutton(Context context, ActionButtonView renderer, int spacing) : base(context)
         {
-            _spacing = spacing;
             _context = context;
+            _spacing = spacing;
             Setbtn(renderer);
             _renderer.PropertyChanged += Renderer_PropertyChanged;
-            
+            this.LongClick += CustomFloatingactionbutton_LongClick;
+        }
+
+        private void CustomFloatingactionbutton_LongClick(object sender, LongClickEventArgs e)
+        {
+            _renderer.LongClickAction();
         }
 
         private void CustomFloatingActionButton_Click(object sender, EventArgs e)
@@ -105,5 +110,6 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
             base.Dispose(disposing);
             _renderer.PropertyChanged -= Renderer_PropertyChanged;
         }
+
     }
 }

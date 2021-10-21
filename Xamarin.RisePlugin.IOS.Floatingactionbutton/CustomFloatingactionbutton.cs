@@ -25,8 +25,23 @@ namespace Xamarin.RisePlugin.IOS.Floatingactionbutton
             _widthConstraint.Active = true;
             TouchDown += CustomFloatingactionbutton_TouchDown;
             _view.PropertyChanged += PropertyChanged;
+           var _longPressGestureRecognizer = new UILongPressGestureRecognizer(HandleLongPress);
+            AddGestureRecognizer(_longPressGestureRecognizer);
         }
+        private void HandleLongPress(UILongPressGestureRecognizer o)
+        {
+            switch (o.State)
+            {
+                case UIGestureRecognizerState.Began:
+                    _view.LongClickAction();
+                    System.Diagnostics.Debug.WriteLine("LONG PRESS BEGAN");
+                    break;
 
+                case UIGestureRecognizerState.Ended:
+                    System.Diagnostics.Debug.WriteLine("LONG PRESS ENDED");
+                    break;
+            }
+        }
         private void CustomFloatingactionbutton_TouchDown(object sender, EventArgs e)
         {
             Animate(0.1, 0, UIViewAnimationOptions.Autoreverse,

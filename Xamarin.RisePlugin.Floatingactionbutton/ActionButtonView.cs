@@ -25,12 +25,20 @@ namespace Xamarin.RisePlugin.Floatingactionbutton
             BindableProperty.Create(nameof(Icon), typeof(string), typeof(ActionButtonView), "", BindingMode.OneWay,
                 null, null);
 
-        public event EventHandler<EventArgs> ClickActionButton;
+        public event EventHandler<EventArgs> Click;
 
         public void ClickAction()
         {
-            ClickActionButton?.Invoke(this, null);
+            Click?.Invoke(this, null);
         }
+        public event EventHandler<EventArgs> LongClick;
+
+        public void LongClickAction()
+        {
+            LongClick?.Invoke(this, null);
+        }
+
+
 
         public ActionButtonView()
         {
