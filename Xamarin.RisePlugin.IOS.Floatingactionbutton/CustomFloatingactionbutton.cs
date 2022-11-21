@@ -25,7 +25,7 @@ namespace Xamarin.RisePlugin.IOS.Floatingactionbutton
             _widthConstraint.Active = true;
             TouchDown += CustomFloatingactionbutton_TouchDown;
             _view.PropertyChanged += PropertyChanged;
-           var _longPressGestureRecognizer = new UILongPressGestureRecognizer(HandleLongPress);
+            var _longPressGestureRecognizer = new UILongPressGestureRecognizer(HandleLongPress);
             AddGestureRecognizer(_longPressGestureRecognizer);
         }
         private void HandleLongPress(UILongPressGestureRecognizer o)
@@ -58,6 +58,7 @@ namespace Xamarin.RisePlugin.IOS.Floatingactionbutton
             {
                 _heightConstraint.Constant = (nfloat)_view.HeightRequest;
                 _widthConstraint.Constant = (nfloat)_view.HeightRequest;
+                Layer.CornerRadius = (nfloat)_view.HeightRequest / 2;
             }
         }
 
