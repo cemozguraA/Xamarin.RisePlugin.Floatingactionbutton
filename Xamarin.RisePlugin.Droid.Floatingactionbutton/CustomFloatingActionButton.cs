@@ -41,6 +41,7 @@ namespace Xamarin.RisePlugin.Droid.Floatingactionbutton
             _renderer = v;
             SetRippleColor(ColorStateList.ValueOf(v.SelectedColor.ToAndroid()));
             BackgroundTintList = ColorStateList.ValueOf(v.BackgroundColor.ToAndroid());
+            CompatElevation = 0;
             SetSize();
             if (!string.IsNullOrWhiteSpace(v.Icon))
             {
